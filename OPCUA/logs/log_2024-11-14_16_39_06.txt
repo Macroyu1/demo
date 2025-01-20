@@ -1,0 +1,4 @@
+149:root:INFO:Namespace index for 'http://www.siemens.com/simatic-s7-opcua': 2
+158:root:INFO:RandomValue1: 45
+159:root:INFO:RandomValue2: 61
+165:root:INFO:RandomValue3: 31

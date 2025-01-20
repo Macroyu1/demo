@@ -1,0 +1,4 @@
+2024-11-14 16:40:02,997 - 149 - root - INFO - Namespace index for 'http://www.siemens.com/simatic-s7-opcua': 2
+2024-11-14 16:40:03,009 - 158 - root - INFO - RandomValue1: 53
+2024-11-14 16:40:03,009 - 159 - root - INFO - RandomValue2: 83
+2024-11-14 16:40:03,016 - 165 - root - INFO - RandomValue3: 17

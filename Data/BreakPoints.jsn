@@ -1,0 +1,12 @@
+{
+  "ProgramsCount": 1,
+  "ProgramsBreaks": [
+    {
+      "FileName": "Camera_Auto_Trig.pro",
+      "BreakCount": 1,
+      "BreakLines": [
+        18
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "InputBitLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "InputByteLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "InputWordLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "OutputBitLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "OutputByteLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "OutputWordLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "AdLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "DaLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "BVarLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "RVarLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  },
+  "DVarLabels": {
+    "nNumberOfLabels": 0,
+    "LabelsArray": []
+  }
+}
