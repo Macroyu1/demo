@@ -6,7 +6,7 @@ import os
 import onnx
 from ultralytics import YOLO
 
-def box_detect(model,image_path, conf_threshold=0.65, iou_threshold=0.6, img_size=1280):
+def box_detect(model,image_path, conf_threshold=0.5, iou_threshold=0.6, img_size=1280):
     """
     使用预训练模型检测给定图像中的边框。
     参数:

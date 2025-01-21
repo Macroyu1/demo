@@ -39,43 +39,51 @@ class Processor(LoggerHandler,Point_Cloud):
         
 
 def main():
-    processor = Processor("image\\test.jpg", "image\\test.pcd")
+    processor = Processor("test\image\\test.jpg", "test\image\\test.pcd")
     # 相机内参矩阵和畸变系数
-    intrinsic_matrix = np.array([[3444.26, 0, 1161.62],
-                               [0, 3447.16, 1053.98],
+    intrinsic_matrix = np.array([[2111.84955910501, 0, 1290.97644079674],
+                               [0, 2104.38342695474, 909.415077675728],
                                [0, 0, 1]], dtype=np.float32)
     dist_coeffs = np.array([-0.0582, -0.6964, -0.003, 0.0175, 1.1209], dtype=np.float32)
 
-    extrinsic_matrix = np.array([ [0.892025113436806   ,   0.102339548729281 ,  -4.23273148957745e-21],
-   [-0.00960122221607244  ,  0.901616289223988  , -8.89413307636275e-21],
-    [  0.0130152726953502   ,    -0.0160708018827668   ,   5.63090355422365e-20],
-    [1216.78729765925    ,      1138.99834759068         ,                1]])
+        
+        
+    extrinsic_matrix = np.array([ [ 0.992949194608488 ,    -0.000183697262421475    ,  -0.00752634335280559   ,  -8.37491630316323e-05],
+     [ -2.57858190291198e-05  ,       0.992861890735398 ,     -0.00529848127847806   ,   0.000101933510194447],
+      [-0.00139121994487156  ,   -0.000959970207155758     ,     0.99292337549335     ,  -0.0124224916904693],
+       [                  0    ,                     0   ,                      0   ,                      1]])
+    
+    # extrinsic_matrix = np.array([[0.997125,-0.0534843,0.0536749,-95.5026],
+    #         [0.0546529,0.998294,-0.0205439,118.367],
+    #         [-0.0524846,0.0234183,0.998347,-8.90425],
+    #         [0,0,0,1]])
    
     
-    
-
     points = processor.Point_Cloud_preprocessing("voxel",size=10)
 
     # processor.show(points)
 
     # 转换点云坐标到齐次坐标
     points_homogeneous = np.hstack((points, np.ones((points.shape[0], 1))))
-    
+
     # 将相机坐标系的点投影到图像平面
-    points_image = points_homogeneous @ extrinsic_matrix  # 乘以外参矩阵进行坐标转换
+    points_image = points_homogeneous @ extrinsic_matrix.T  # 乘以外参矩阵进行坐标转换
 
-    points_image[:, :2] /= points_image[:, 2][:, None]  # 归一化，转换到像素坐标
+    pixel_coords = (intrinsic_matrix @ points_image[:, :3].T).T  # 内参矩阵变换
+    
+    pixel_coords[:, :2] /= pixel_coords[:, 2][:, None]  # 归一化
 
-    # 转换为像素坐标
-    pixel_coords = points_image[:, :2].astype(int)
+    pixel_coords = np.round(pixel_coords[:, :2]).astype(int)  # 转换为整数像素坐标
+    
+    # print(points_homogeneous.shape,extrinsic_matrix.shape,extrinsic_matrix.T.shape,points_image.shape)
 
     image_shape = (2448, 2048)
     # 创建空的图像掩膜
     mask = np.zeros(image_shape, dtype=np.uint8)
-
     
     # 过滤掉超出图像范围的点
-    valid_mask = (pixel_coords[:, 0] >= 0) & (pixel_coords[:, 0] < image_shape[1]) & (pixel_coords[:, 1] >= 0) & (pixel_coords[:, 1] < image_shape[0])
+    valid_mask = (pixel_coords[:, 0] >= 0) & (pixel_coords[:, 0] < image_shape[0]) & (pixel_coords[:, 1] >= 0) & (pixel_coords[:, 1] < image_shape[1])
+    # print(valid_mask)
     valid_pixel_coords = pixel_coords[valid_mask]
 
     # 在掩膜中标记点
@@ -89,7 +97,8 @@ def main():
     dilated_mask = cv2.dilate(mask, kernel, iterations=2)  # 膨胀操作
 
     # 读取图像
-    image = cv2.imread("image\\test.jpg")  # 替换为你的图像文件路径
+    image = cv2.imread("test\image\\test.jpg")
+
     # 确保掩膜和图像大小一致
     dilated_mask_resized = cv2.resize(dilated_mask, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_NEAREST)
 
@@ -104,7 +113,7 @@ def main():
     image_resized = cv2.resize(image,(1224, 1024))
      # 显示最终图像
     cv2.imshow("result Image", result_image_resized)
-    cv2.imshow("result1 Image", image_resized)
+    # cv2.imshow("result1 Image", image_resized)
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()

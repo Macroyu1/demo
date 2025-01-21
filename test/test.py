@@ -9,7 +9,7 @@ from scipy.spatial import KDTree
 import onnx
 from ultralytics import YOLO
 from detection.detection import box_detect
-def read_config(config_path = r".\\calibration\\config.yaml") :
+def read_config(config_path = r"test\\calibration\\config.yaml") :
     if not os.path.exists(config_path):
         raise FileNotFoundError(f"配置文件 {config_path} 不存在。")
     with open(config_path, 'r',encoding="utf-8") as file:
@@ -116,7 +116,7 @@ def main():
     config = read_config()
     image_point = np.array([1121,405])
     # 示例调用
-    pcd_file = "image\\test.pcd"  # 替换为实际点云文件路径
+    pcd_file = "test\image\\test.pcd"  # 替换为实际点云文件路径
 
     min_bound = (-1800, -1900, 3000)  # 替换为 ROI 的最小边界
     max_bound = (1800, 1900, 15000)    # 替换为 ROI 的最大边界
@@ -126,8 +126,8 @@ def main():
     pixel_coords = (1243	,1258)  # 替换为目标 2D 像素坐标 (u, v)
     
     # Load model
-    model = YOLO("detection\\best.onnx", task='detect')
-    processed_img,detect_result = box_detect(model,"image\\test.jpg")
+    model = YOLO("test\detection\\best.onnx", task='detect')
+    processed_img,detect_result = box_detect(model,"test\image\\test.jpg")
     points = []
     
     # 提取检测框的角点并计算对应的3D点
