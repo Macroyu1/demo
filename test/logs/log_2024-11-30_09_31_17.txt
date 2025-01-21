@@ -1,0 +1,2 @@
+2024-11-30 09:31:17,271 - Logger.py - 30 - root - INFO - LoggerHandler init success.
+2024-11-30 09:31:17,327 - client.py - 149 - root - INFO - Namespace index for 'http://www.siemens.com/simatic-s7-opcua': 3
