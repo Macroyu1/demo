@@ -27,7 +27,7 @@ def box_detect(model,image_path, conf_threshold=0.5, iou_threshold=0.6, img_size
             iou=iou_threshold,
             imgsz=img_size,
             half=False,
-            device='cpu',
+            # device='cuda0',
             save=False,
         )
 

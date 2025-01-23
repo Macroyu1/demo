@@ -60,7 +60,7 @@ def main():
    
     
     points = processor.Point_Cloud_preprocessing("voxel",size=10)
-
+    print(points)
     # processor.show(points)
 
     # 转换点云坐标到齐次坐标
@@ -75,6 +75,7 @@ def main():
 
     pixel_coords = np.round(pixel_coords[:, :2]).astype(int)  # 转换为整数像素坐标
     
+    print(pixel_coords)
     # print(points_homogeneous.shape,extrinsic_matrix.shape,extrinsic_matrix.T.shape,points_image.shape)
 
     image_shape = (2448, 2048)
